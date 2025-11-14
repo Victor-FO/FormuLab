@@ -1,4 +1,3 @@
-import 'dart:math';
 
 /// Value Object que representa el resultado del cálculo del área de un rombo.
 class ResultadoAreaRombo {

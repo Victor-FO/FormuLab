@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testcalc/domain/usecases/resolver_tales_usecase.dart';
+import '../../l10n/app_localizations.dart';
 
 class CalculadoraTales extends StatefulWidget {
   const CalculadoraTales({super.key});
@@ -74,6 +75,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -85,12 +87,12 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calcular Teorema de Tales',
+                l10n.tales_title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'Introduce tres valores para calcular el cuarto.',
+                l10n.tales_subtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -99,32 +101,36 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
               _buildSelectorVariable(context),
               const SizedBox(height: 24),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _aController,
-                label: 'Valor a',
+                label: l10n.tales_var_a,
                 enabled: _variableACalcular != 'a',
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _bController,
-                label: 'Valor b',
+                label: l10n.tales_var_b,
                 enabled: _variableACalcular != 'b',
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _cController,
-                label: 'Valor c',
+                label: l10n.tales_var_c,
                 enabled: _variableACalcular != 'c',
               ),
                const SizedBox(height: 16),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _dController,
-                label: 'Valor d',
+                label: l10n.tales_var_d,
                 enabled: _variableACalcular != 'd',
               ),
               const SizedBox(height: 24),
-              _buildBotones(),
+              _buildBotones(l10n),
               if (_error != null) _buildErrorWidget(context),
-              if (_resultado != null) _buildResultadoWidget(context),
+              if (_resultado != null) _buildResultadoWidget(context, l10n),
             ],
           ),
         ),
@@ -133,11 +139,12 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
   }
 
   Widget _buildSelectorVariable(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quiero calcular:',
+          l10n.tales_title,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
@@ -166,6 +173,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
   }
 
   Widget _buildTextFormField({
+    required AppLocalizations l10n,
     required TextEditingController controller,
     required String label,
     required bool enabled,
@@ -184,10 +192,10 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
       validator: (value) {
         if (enabled) {
           if (value == null || value.isEmpty) {
-            return 'Ingresa un valor';
+            return l10n.calculator_error_enter_value;
           }
           if (double.tryParse(value.replaceAll(',', '.')) == null) {
-            return 'Número inválido';
+            return l10n.calculator_error_invalid_number;
           }
         }
         return null;
@@ -195,14 +203,14 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
     );
   }
 
-  Widget _buildBotones() {
+  Widget _buildBotones(AppLocalizations l10n) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton.icon(
             onPressed: _calcular,
             icon: const Icon(Icons.calculate),
-            label: const Text('Calcular'),
+            label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -214,7 +222,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
           child: OutlinedButton.icon(
             onPressed: _limpiar,
             icon: const Icon(Icons.clear),
-            label: const Text('Limpiar'),
+            label: Text(l10n.calculator_clear_button),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -250,7 +258,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
     );
   }
 
-  Widget _buildResultadoWidget(BuildContext context) {
+  Widget _buildResultadoWidget(BuildContext context, AppLocalizations l10n) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -263,7 +271,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Resultado', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            Text(l10n.calculator_result_title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
             const SizedBox(height: 16),
             Text(
               '${_resultado!.variableCalculada} = ${_format(_resultado!.valorCalculado)} cm',
@@ -283,7 +291,7 @@ class _CalculadoraTalesState extends State<CalculadoraTales> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cálculo Realizado', style: Theme.of(context).textTheme.labelMedium),
+                  Text(l10n.calculator_calculation_title, style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 4),
                   Text(
                     _resultado!.descripcion,

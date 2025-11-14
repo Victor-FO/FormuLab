@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testcalc/domain/usecases/resolver_area_poligono_regular_usecase.dart';
+import '../../l10n/app_localizations.dart';
 
 class CalculadoraAreaPoligonoRegular extends StatefulWidget {
   const CalculadoraAreaPoligonoRegular({super.key});
@@ -66,6 +67,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -77,12 +79,12 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calcular Área de Polígono Regular',
+                l10n.poligono_title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'Introduce los datos del polígono.',
+                l10n.poligono_subtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -90,23 +92,26 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
               const SizedBox(height: 24),
               _buildTextFormField(
                 _nController, 
-                'Número de lados (n)',
+                l10n.poligono_var_n,
+                l10n,
                 isInteger: true,
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
                 _lController, 
-                'Longitud de un lado (l)',
+                l10n.poligono_var_l,
+                l10n
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
                 _apController, 
-                'Apotema (ap)',
+                l10n.poligono_var_ap,
+                l10n
               ),
               const SizedBox(height: 24),
-              _buildBotones(),
+              _buildBotones(l10n),
               if (_error != null) _buildErrorWidget(context),
-              if (_resultado != null) _buildResultadoWidget(context),
+              if (_resultado != null) _buildResultadoWidget(context, l10n),
             ],
           ),
         ),
@@ -114,7 +119,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
     );
   }
 
-  Widget _buildTextFormField(TextEditingController controller, String label, {bool isInteger = false}) {
+  Widget _buildTextFormField(TextEditingController controller, String label, AppLocalizations l10n, {bool isInteger = false}) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -129,26 +134,26 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
           : [FilteringTextInputFormatter.allow(RegExp(r'^\d*[,.]?\d*'))],
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Ingresa un valor';
+          return l10n.calculator_error_enter_value;
         }
         if (isInteger) {
-          if (int.tryParse(value) == null) return 'Número entero inválido';
+          if (int.tryParse(value) == null) return l10n.calculator_error_invalid_number;
         } else {
-          if (double.tryParse(value.replaceAll(',', '.')) == null) return 'Número inválido';
+          if (double.tryParse(value.replaceAll(',', '.')) == null) return l10n.calculator_error_invalid_number;
         }
         return null;
       },
     );
   }
 
-  Widget _buildBotones() {
+  Widget _buildBotones(AppLocalizations l10n) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton.icon(
             onPressed: _calcular,
             icon: const Icon(Icons.calculate),
-            label: const Text('Calcular'),
+            label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -160,7 +165,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
           child: OutlinedButton.icon(
             onPressed: _limpiar,
             icon: const Icon(Icons.clear),
-            label: const Text('Limpiar'),
+            label: Text(l10n.calculator_clear_button),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -196,7 +201,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
     );
   }
 
-  Widget _buildResultadoWidget(BuildContext context) {
+  Widget _buildResultadoWidget(BuildContext context, AppLocalizations l10n) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -209,7 +214,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Resultado', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            Text(l10n.calculator_result_title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
             const SizedBox(height: 16),
             Text(
               'Área = ${_format(_resultado!.area)} cm²',
@@ -237,7 +242,7 @@ class _CalculadoraAreaPoligonoRegularState extends State<CalculadoraAreaPoligono
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cálculo Realizado', style: Theme.of(context).textTheme.labelMedium),
+                  Text(l10n.calculator_calculation_title, style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 4),
                   Text(
                     _resultado!.descripcion,

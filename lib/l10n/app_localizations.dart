@@ -508,6 +508,90 @@ abstract class AppLocalizations {
   /// **'La fórmula general para resolver ecuaciones de segundo grado es:\nx = (-b ± √(b² - 4ac)) / 2a\n\nDonde:\n• a, b, c son los coeficientes de la ecuación\n• El discriminante (Δ = b² - 4ac) determina el tipo de soluciones:\n  - Si Δ > 0: dos soluciones reales distintas\n  - Si Δ = 0: una solución real (raíz doble)\n  - Si Δ < 0: no tiene soluciones reales'**
   String get formula_ecuacion_segundo_grado_explanation;
 
+  /// No description provided for @ecuacion_segundo_grado_error_a_zero.
+  ///
+  /// In es, this message translates to:
+  /// **'Valor incorrecto'**
+  String get ecuacion_segundo_grado_error_a_zero;
+
+  /// No description provided for @ecuacion_segundo_grado_error_calculating.
+  ///
+  /// In es, this message translates to:
+  /// **'Error al calcular'**
+  String get ecuacion_segundo_grado_error_calculating;
+
+  /// No description provided for @ecuacion_segundo_grado_coef_a.
+  ///
+  /// In es, this message translates to:
+  /// **'Coeficiente a'**
+  String get ecuacion_segundo_grado_coef_a;
+
+  /// No description provided for @ecuacion_segundo_grado_ej_a.
+  ///
+  /// In es, this message translates to:
+  /// **'Ej(2)'**
+  String get ecuacion_segundo_grado_ej_a;
+
+  /// No description provided for @ecuacion_segundo_grado_error_a.
+  ///
+  /// In es, this message translates to:
+  /// **'Error en el valor de a'**
+  String get ecuacion_segundo_grado_error_a;
+
+  /// No description provided for @ecuacion_segundo_grado_coef_b.
+  ///
+  /// In es, this message translates to:
+  /// **'Coeficiente b'**
+  String get ecuacion_segundo_grado_coef_b;
+
+  /// No description provided for @ecuacion_segundo_grado_ej_bb.
+  ///
+  /// In es, this message translates to:
+  /// **'Ej(3)'**
+  String get ecuacion_segundo_grado_ej_bb;
+
+  /// No description provided for @ecuacion_segundo_grado_error_b.
+  ///
+  /// In es, this message translates to:
+  /// **'Error en el valor de b'**
+  String get ecuacion_segundo_grado_error_b;
+
+  /// No description provided for @ecuacion_segundo_grado_coef_c.
+  ///
+  /// In es, this message translates to:
+  /// **'Coeficiente c'**
+  String get ecuacion_segundo_grado_coef_c;
+
+  /// No description provided for @ecuacion_segundo_grado_ej_c.
+  ///
+  /// In es, this message translates to:
+  /// **'Ej(-5)'**
+  String get ecuacion_segundo_grado_ej_c;
+
+  /// No description provided for @ecuacion_segundo_grado_error_c.
+  ///
+  /// In es, this message translates to:
+  /// **'Error en el valor de c'**
+  String get ecuacion_segundo_grado_error_c;
+
+  /// No description provided for @ecuacion_segundo_grado_discriminante.
+  ///
+  /// In es, this message translates to:
+  /// **'Discriminante'**
+  String get ecuacion_segundo_grado_discriminante;
+
+  /// No description provided for @ecuacion_segundo_grado_no_real_solutions.
+  ///
+  /// In es, this message translates to:
+  /// **'No tiene soluciones'**
+  String get ecuacion_segundo_grado_no_real_solutions;
+
+  /// No description provided for @ecuacion_segundo_grado_double_root.
+  ///
+  /// In es, this message translates to:
+  /// **''**
+  String get ecuacion_segundo_grado_double_root;
+
   /// No description provided for @formula_teorema_pitagoras_name.
   ///
   /// In es, this message translates to:

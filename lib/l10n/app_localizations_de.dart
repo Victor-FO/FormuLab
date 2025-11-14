@@ -218,6 +218,49 @@ class AppLocalizationsDe extends AppLocalizations {
       'Die allgemeine Formel zur Lösung quadratischer Gleichungen lautet:\nx = (-b ± √(b² - 4ac)) / 2a\n\nWo:\n• a, b, c die Koeffizienten der Gleichung sind\n• Die Diskriminante (Δ = b² - 4ac) bestimmt die Art der Lösungen:\n  - Wenn Δ > 0: zwei verschiedene reelle Lösungen\n  - Wenn Δ = 0: eine reelle Lösung (doppelte Wurzel)\n  - Wenn Δ < 0: keine reellen Lösungen';
 
   @override
+  String get ecuacion_segundo_grado_error_a_zero => 'Fehler: a ist null';
+
+  @override
+  String get ecuacion_segundo_grado_error_calculating =>
+      'Fehler bei der Berechnung';
+
+  @override
+  String get ecuacion_segundo_grado_coef_a => 'Koeffizient a';
+
+  @override
+  String get ecuacion_segundo_grado_ej_a => 'Bsp(2)';
+
+  @override
+  String get ecuacion_segundo_grado_error_a => 'Fehler beim Wert von a';
+
+  @override
+  String get ecuacion_segundo_grado_coef_b => 'Koeffizient b';
+
+  @override
+  String get ecuacion_segundo_grado_ej_bb => 'Bsp(3)';
+
+  @override
+  String get ecuacion_segundo_grado_error_b => 'Fehler beim Wert von b';
+
+  @override
+  String get ecuacion_segundo_grado_coef_c => 'Koeffizient c';
+
+  @override
+  String get ecuacion_segundo_grado_ej_c => 'Bsp(-5)';
+
+  @override
+  String get ecuacion_segundo_grado_error_c => 'Fehler beim Wert von c';
+
+  @override
+  String get ecuacion_segundo_grado_discriminante => 'Diskriminante';
+
+  @override
+  String get ecuacion_segundo_grado_no_real_solutions => 'Keine Lösungen';
+
+  @override
+  String get ecuacion_segundo_grado_double_root => '(doppelte Wurzel)';
+
+  @override
   String get formula_teorema_pitagoras_name => 'Satz des Pythagoras';
 
   @override

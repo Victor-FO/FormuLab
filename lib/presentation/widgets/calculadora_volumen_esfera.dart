@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testcalc/domain/usecases/resolver_volumen_esfera_usecase.dart';
+import '../../l10n/app_localizations.dart';
 
 class CalculadoraVolumenEsfera extends StatefulWidget {
   const CalculadoraVolumenEsfera({super.key});
@@ -58,6 +59,7 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -69,12 +71,12 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calcular Volumen de una Esfera',
+                l10n.esfera_title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'Introduce el radio (r) para calcular el volumen.',
+                l10n.esfera_subtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -83,25 +85,25 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
               TextFormField(
                 controller: _rController,
                 decoration: InputDecoration(
-                  labelText: 'Radio (r)',
+                  labelText: l10n.esfera_var_r,
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 keyboardType: const TextInputType.numberWithOptions(decimal: true),
                 inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*[,.]?\d*'))],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingresa un valor para el radio';
+                    return l10n.calculator_error_enter_value;
                   }
                   if (double.tryParse(value.replaceAll(',', '.')) == null) {
-                    return 'Número inválido';
+                    return l10n.calculator_error_invalid_number;
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 24),
-              _buildBotones(),
-              if (_error != null) _buildErrorWidget(context),
-              if (_resultado != null) _buildResultadoWidget(context),
+              _buildBotones(l10n),
+              if (_error != null) _buildErrorWidget(context, _error!),
+              if (_resultado != null) _buildResultadoWidget(context, _resultado!),
             ],
           ),
         ),
@@ -109,14 +111,14 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
     );
   }
 
-  Widget _buildBotones() {
+  Widget _buildBotones(AppLocalizations l10n) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton.icon(
             onPressed: _calcular,
             icon: const Icon(Icons.calculate),
-            label: const Text('Calcular'),
+            label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -128,7 +130,7 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
           child: OutlinedButton.icon(
             onPressed: _limpiar,
             icon: const Icon(Icons.clear),
-            label: const Text('Limpiar'),
+            label: Text(l10n.calculator_clear_button),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -139,7 +141,7 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
     );
   }
 
-  Widget _buildErrorWidget(BuildContext context) {
+  Widget _buildErrorWidget(BuildContext context, String error) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -154,7 +156,7 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
             const SizedBox(width: 12),
             Expanded(
               child: Text(
-                _error!,
+                error,
                 style: TextStyle(color: Theme.of(context).colorScheme.onErrorContainer),
               ),
             ),
@@ -164,7 +166,8 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
     );
   }
 
-  Widget _buildResultadoWidget(BuildContext context) {
+  Widget _buildResultadoWidget(BuildContext context, ResultadoVolumenEsfera resultado) {
+    final l10n = AppLocalizations.of(context)!;
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -177,10 +180,10 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Resultado', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            Text(l10n.calculator_result_title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
             const SizedBox(height: 16),
             Text(
-              'V = ${_format(_resultado!.volumen)} cm³',
+              'V = ${_format(resultado.volumen)} cm³',
                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontFamily: 'monospace',
                 fontWeight: FontWeight.bold,
@@ -197,10 +200,10 @@ class _CalculadoraVolumenEsferaState extends State<CalculadoraVolumenEsfera> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cálculo Realizado', style: Theme.of(context).textTheme.labelMedium),
+                  Text(l10n.calculator_calculation_title, style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 4),
                   Text(
-                    _resultado!.descripcion,
+                    resultado.descripcion,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontFamily: 'monospace'),
                   ),
                 ],

@@ -1,3 +1,5 @@
+import '../../l10n/app_localizations.dart';
+
 /// Value Object que representa el resultado de resolver una ecuación
 abstract class ResultadoEcuacion {
   final double discriminante;
@@ -21,6 +23,8 @@ abstract class ResultadoEcuacion {
   factory ResultadoEcuacion.sinSolucionesReales({
     required double discriminante,
   }) = ResultadoSinSoluciones;
+
+  String toLocalizedString(AppLocalizations l10n);
 }
 
 class ResultadoDosSoluciones extends ResultadoEcuacion {
@@ -37,6 +41,11 @@ class ResultadoDosSoluciones extends ResultadoEcuacion {
   String toString() {
     return 'x₁ = ${solucion1.toStringAsFixed(4)}, x₂ = ${solucion2.toStringAsFixed(4)}';
   }
+
+  @override
+  String toLocalizedString(AppLocalizations l10n) {
+    return toString();
+  }
 }
 
 class ResultadoUnaSolucion extends ResultadoEcuacion {
@@ -51,6 +60,11 @@ class ResultadoUnaSolucion extends ResultadoEcuacion {
   String toString() {
     return 'x = ${solucion.toStringAsFixed(4)} (raíz doble)';
   }
+
+  @override
+  String toLocalizedString(AppLocalizations l10n) {
+    return 'x = ${solucion.toStringAsFixed(4)} (${l10n.ecuacion_segundo_grado_double_root})';
+  }
 }
 
 class ResultadoSinSoluciones extends ResultadoEcuacion {
@@ -58,6 +72,11 @@ class ResultadoSinSoluciones extends ResultadoEcuacion {
 
   @override
   String toString() {
-    return 'No tiene soluciones reales (Δ < 0)';
+    return 'No tiene soluciones reales';
+  }
+
+  @override
+  String toLocalizedString(AppLocalizations l10n) {
+    return l10n.ecuacion_segundo_grado_no_real_solutions;
   }
 }

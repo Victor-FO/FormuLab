@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testcalc/domain/usecases/resolver_pitagoras_usecase.dart';
+import '../../l10n/app_localizations.dart';
 
 class CalculadoraPitagoras extends StatefulWidget {
   const CalculadoraPitagoras({super.key});
@@ -17,7 +18,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
   final _resolverUseCase = const ResolverPitagorasUseCase();
 
   // El lado que se va a calcular ('a', 'b' o 'c')
-  String _variableACalcular = 'c'; 
+  String _variableACalcular = 'c';
 
   ResultadoPitagoras? _resultado;
   String? _error;
@@ -72,6 +73,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -83,12 +85,12 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calcular Teorema de Pitágoras',
+                l10n.pitagoras_title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'Introduce dos lados para calcular el tercero.',
+                l10n.pitagoras_subtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -97,26 +99,29 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
               _buildSelectorVariable(context),
               const SizedBox(height: 24),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _aController,
-                label: 'Cateto a',
+                label: l10n.pitagoras_var_a,
                 enabled: _variableACalcular != 'a',
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _bController,
-                label: 'Cateto b',
+                label: l10n.pitagoras_var_b,
                 enabled: _variableACalcular != 'b',
               ),
               const SizedBox(height: 16),
               _buildTextFormField(
+                l10n: l10n,
                 controller: _cController,
-                label: 'Hipotenusa c',
+                label: l10n.pitagoras_var_c,
                 enabled: _variableACalcular != 'c',
               ),
               const SizedBox(height: 24),
-              _buildBotones(),
+              _buildBotones(l10n),
               if (_error != null) _buildErrorWidget(context),
-              if (_resultado != null) _buildResultadoWidget(context),
+              if (_resultado != null) _buildResultadoWidget(context, l10n),
             ],
           ),
         ),
@@ -125,19 +130,20 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
   }
 
   Widget _buildSelectorVariable(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quiero calcular:',
+          l10n.pitagoras_i_want_to_calculate,
           style: Theme.of(context).textTheme.labelLarge,
         ),
         const SizedBox(height: 8),
         SegmentedButton<String>(
-          segments: const [
-            ButtonSegment(value: 'a', label: Text('Cateto a')),
-            ButtonSegment(value: 'b', label: Text('Cateto b')),
-            ButtonSegment(value: 'c', label: Text('Hipotenusa c')),
+          segments: [
+            ButtonSegment(value: 'a', label: Text(l10n.pitagoras_var_a)),
+            ButtonSegment(value: 'b', label: Text(l10n.pitagoras_var_b)),
+            ButtonSegment(value: 'c', label: Text(l10n.pitagoras_var_c)),
           ],
           selected: {_variableACalcular},
           onSelectionChanged: (Set<String> newSelection) {
@@ -157,6 +163,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
   }
 
   Widget _buildTextFormField({
+    required AppLocalizations l10n,
     required TextEditingController controller,
     required String label,
     required bool enabled,
@@ -175,10 +182,10 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
       validator: (value) {
         if (enabled) {
           if (value == null || value.isEmpty) {
-            return 'Ingresa un valor';
+            return l10n.calculator_error_enter_value;
           }
           if (double.tryParse(value.replaceAll(',', '.')) == null) {
-            return 'Número inválido';
+            return l10n.calculator_error_invalid_number;
           }
         }
         return null;
@@ -186,14 +193,14 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
     );
   }
 
-  Widget _buildBotones() {
+  Widget _buildBotones(AppLocalizations l10n) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton.icon(
             onPressed: _calcular,
             icon: const Icon(Icons.calculate),
-            label: const Text('Calcular'),
+            label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -205,7 +212,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
           child: OutlinedButton.icon(
             onPressed: _limpiar,
             icon: const Icon(Icons.clear),
-            label: const Text('Limpiar'),
+            label: Text(l10n.calculator_clear_button),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -241,7 +248,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
     );
   }
 
-  Widget _buildResultadoWidget(BuildContext context) {
+  Widget _buildResultadoWidget(BuildContext context, AppLocalizations l10n) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -254,7 +261,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Resultado', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            Text(l10n.calculator_result_title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
             const SizedBox(height: 16),
             Text(
               '${_resultado!.variableCalculada} = ${_format(_resultado!.valorCalculado)} cm',
@@ -274,7 +281,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cálculo Realizado', style: Theme.of(context).textTheme.labelMedium),
+                  Text(l10n.calculator_calculation_title, style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 4),
                   Text(
                     _resultado!.descripcion,

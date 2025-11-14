@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:testcalc/domain/usecases/resolver_area_rombo_usecase.dart';
+import '../../l10n/app_localizations.dart';
 
 class CalculadoraAreaRombo extends StatefulWidget {
   const CalculadoraAreaRombo({super.key});
@@ -62,6 +63,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -73,24 +75,24 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Calcular Área de un Rombo',
+                l10n.rombo_title,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 8),
               Text(
-                'Introduce las diagonales del rombo.',
+                l10n.rombo_subtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 24),
-              _buildTextFormField(_DController, 'Diagonal Mayor (D)'),
+              _buildTextFormField(_DController, l10n.rombo_var_D, l10n),
               const SizedBox(height: 16),
-              _buildTextFormField(_dController, 'Diagonal Menor (d)'),
+              _buildTextFormField(_dController, l10n.rombo_var_d, l10n),
               const SizedBox(height: 24),
-              _buildBotones(),
+              _buildBotones(l10n),
               if (_error != null) _buildErrorWidget(context),
-              if (_resultado != null) _buildResultadoWidget(context),
+              if (_resultado != null) _buildResultadoWidget(context, l10n),
             ],
           ),
         ),
@@ -98,7 +100,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
     );
   }
 
-  Widget _buildTextFormField(TextEditingController controller, String label) {
+  Widget _buildTextFormField(TextEditingController controller, String label, AppLocalizations l10n) {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
@@ -109,24 +111,24 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*[,.]?\d*'))],
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Ingresa un valor';
+          return l10n.calculator_error_enter_value;
         }
         if (double.tryParse(value.replaceAll(',', '.')) == null) {
-          return 'Número inválido';
+          return l10n.calculator_error_invalid_number;
         }
         return null;
       },
     );
   }
 
-  Widget _buildBotones() {
+  Widget _buildBotones(AppLocalizations l10n) {
     return Row(
       children: [
         Expanded(
           child: ElevatedButton.icon(
             onPressed: _calcular,
             icon: const Icon(Icons.calculate),
-            label: const Text('Calcular'),
+            label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -138,7 +140,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
           child: OutlinedButton.icon(
             onPressed: _limpiar,
             icon: const Icon(Icons.clear),
-            label: const Text('Limpiar'),
+            label: Text(l10n.calculator_clear_button),
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -174,7 +176,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
     );
   }
 
-  Widget _buildResultadoWidget(BuildContext context) {
+  Widget _buildResultadoWidget(BuildContext context, AppLocalizations l10n) {
     return Padding(
       padding: const EdgeInsets.only(top: 24.0),
       child: Container(
@@ -187,7 +189,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Resultado', style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+            Text(l10n.calculator_result_title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onPrimaryContainer)),
             const SizedBox(height: 16),
             Text(
               'A = ${_format(_resultado!.area)} cm²',
@@ -207,7 +209,7 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Cálculo Realizado', style: Theme.of(context).textTheme.labelMedium),
+                  Text(l10n.calculator_calculation_title, style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 4),
                   Text(
                     _resultado!.descripcion,

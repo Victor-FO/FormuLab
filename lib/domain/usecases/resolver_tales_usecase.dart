@@ -1,4 +1,3 @@
-import 'dart:math';
 
 /// Value Object que representa el resultado del cálculo del Teorema de Tales.
 class ResultadoTales {

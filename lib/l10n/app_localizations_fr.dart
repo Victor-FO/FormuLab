@@ -215,6 +215,49 @@ class AppLocalizationsFr extends AppLocalizations {
       'La formule générale pour résoudre les équations du second degré est :\nx = (-b ± √(b² - 4ac)) / 2a\n\nOù :\n• a, b, c sont les coefficients de l\'équation\n• Le discriminant (Δ = b² - 4ac) détermine le type de solutions :\n  - Si Δ > 0 : deux solutions réelles distinctes\n  - Si Δ = 0 : une solution réelle (racine double)\n  - Si Δ < 0 : pas de solutions réelles';
 
   @override
+  String get ecuacion_segundo_grado_error_a_zero => 'Erreur : a est nul';
+
+  @override
+  String get ecuacion_segundo_grado_error_calculating =>
+      'Erreur lors du calcul';
+
+  @override
+  String get ecuacion_segundo_grado_coef_a => 'Coefficient a';
+
+  @override
+  String get ecuacion_segundo_grado_ej_a => 'Ex(2)';
+
+  @override
+  String get ecuacion_segundo_grado_error_a => 'Erreur dans la valeur de a';
+
+  @override
+  String get ecuacion_segundo_grado_coef_b => 'Coefficient b';
+
+  @override
+  String get ecuacion_segundo_grado_ej_bb => 'Ex(3)';
+
+  @override
+  String get ecuacion_segundo_grado_error_b => 'Erreur dans la valeur de b';
+
+  @override
+  String get ecuacion_segundo_grado_coef_c => 'Coefficient c';
+
+  @override
+  String get ecuacion_segundo_grado_ej_c => 'Ex(-5)';
+
+  @override
+  String get ecuacion_segundo_grado_error_c => 'Erreur dans la valeur de c';
+
+  @override
+  String get ecuacion_segundo_grado_discriminante => 'Discriminant';
+
+  @override
+  String get ecuacion_segundo_grado_no_real_solutions => 'Pas de solutions';
+
+  @override
+  String get ecuacion_segundo_grado_double_root => '(racine double)';
+
+  @override
   String get formula_teorema_pitagoras_name => 'Théorème de Pythagore';
 
   @override

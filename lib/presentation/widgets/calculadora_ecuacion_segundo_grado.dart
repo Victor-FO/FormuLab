@@ -4,8 +4,8 @@ import 'package:testcalc/domain/usecases/resolver_ecuacion_segundo_grado_usecase
 import 'package:testcalc/domain/usecases/resolver_ecuacion_segundo_grado_fraccion_usecase.dart';
 import 'package:testcalc/domain/value_objects/resultado_ecuacion.dart';
 import 'package:testcalc/domain/value_objects/resultado_ecuacion_fraccion.dart';
+import '../../l10n/app_localizations.dart';
 
-/// Widget que implementa la calculadora de ecuaciones de segundo grado
 class CalculadoraEcuacionSegundoGrado extends StatefulWidget {
   const CalculadoraEcuacionSegundoGrado({super.key});
 
@@ -35,6 +35,7 @@ class _CalculadoraEcuacionSegundoGradoState
   }
 
   void _calcular() {
+    final l10n = AppLocalizations.of(context)!;
     setState(() {
       _resultado = null;
       _resultadoFraccion = null;
@@ -52,12 +53,11 @@ class _CalculadoraEcuacionSegundoGradoState
 
       if (a == 0) {
         setState(() {
-          _error = 'El coeficiente "a" no puede ser cero';
+          _error = l10n.ecuacion_segundo_grado_error_a_zero;
         });
         return;
       }
 
-      // Intentar primero resolver con fracciones (si los coeficientes son enteros)
       final resultadoFraccion = _resolverFraccionUseCase.ejecutar(a: a, b: b, c: c);
       
       if (resultadoFraccion != null && resultadoFraccion.tieneSoluciones) {
@@ -65,7 +65,6 @@ class _CalculadoraEcuacionSegundoGradoState
           _resultadoFraccion = resultadoFraccion;
         });
       } else {
-        // Si no se puede resolver con fracciones, usar el método decimal
         final resultado = _resolverUseCase.ejecutar(a: a, b: b, c: c);
         setState(() {
           _resultado = resultado;
@@ -73,7 +72,7 @@ class _CalculadoraEcuacionSegundoGradoState
       }
     } catch (e) {
       setState(() {
-        _error = 'Error al calcular: ${e.toString()}';
+        _error = l10n.ecuacion_segundo_grado_error_calculating;
       });
     }
   }
@@ -91,6 +90,7 @@ class _CalculadoraEcuacionSegundoGradoState
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -111,7 +111,7 @@ class _CalculadoraEcuacionSegundoGradoState
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Calculadora',
+                    l10n.formula_ecuacion_segundo_grado_name,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -120,18 +120,17 @@ class _CalculadoraEcuacionSegundoGradoState
               ),
               const SizedBox(height: 8),
               Text(
-                'Ingresa los coeficientes de la ecuación ax² + bx + c = 0',
+                l10n.formula_ecuacion_segundo_grado_desc,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
               ),
               const SizedBox(height: 24),
-              // Campo para coeficiente a
               TextFormField(
                 controller: _aController,
                 decoration: InputDecoration(
-                  labelText: 'Coeficiente a',
-                  hintText: 'Ej: 2',
+                  labelText: l10n.ecuacion_segundo_grado_coef_a,
+                  hintText: l10n.ecuacion_segundo_grado_ej_a,
                   prefixIcon: const Icon(Icons.numbers),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -149,21 +148,20 @@ class _CalculadoraEcuacionSegundoGradoState
                 ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingresa el coeficiente a';
+                    return l10n.ecuacion_segundo_grado_error_a;
                   }
                   if (double.tryParse(value) == null) {
-                    return 'Ingresa un número válido';
+                    return l10n.calculator_error_invalid_number;
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              // Campo para coeficiente b
               TextFormField(
                 controller: _bController,
                 decoration: InputDecoration(
-                  labelText: 'Coeficiente b',
-                  hintText: 'Ej: 5',
+                  labelText: l10n.ecuacion_segundo_grado_coef_b,
+                  hintText: l10n.ecuacion_segundo_grado_ej_bb,
                   prefixIcon: const Icon(Icons.numbers),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -181,21 +179,20 @@ class _CalculadoraEcuacionSegundoGradoState
                 ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingresa el coeficiente b';
+                    return l10n.ecuacion_segundo_grado_error_b;
                   }
                   if (double.tryParse(value) == null) {
-                    return 'Ingresa un número válido';
+                    return l10n.calculator_error_invalid_number;
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              // Campo para coeficiente c
               TextFormField(
                 controller: _cController,
                 decoration: InputDecoration(
-                  labelText: 'Coeficiente c',
-                  hintText: 'Ej: -3',
+                  labelText: l10n.ecuacion_segundo_grado_coef_c,
+                  hintText: l10n.ecuacion_segundo_grado_ej_c,
                   prefixIcon: const Icon(Icons.numbers),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -213,23 +210,22 @@ class _CalculadoraEcuacionSegundoGradoState
                 ],
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Ingresa el coeficiente c';
+                    return l10n.ecuacion_segundo_grado_error_c;
                   }
                   if (double.tryParse(value) == null) {
-                    return 'Ingresa un número válido';
+                    return l10n.calculator_error_invalid_number;
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 24),
-              // Botones
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton.icon(
                       onPressed: _calcular,
                       icon: const Icon(Icons.calculate),
-                      label: const Text('Calcular'),
+                      label: Text(l10n.calculator_calculate_button),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -243,7 +239,7 @@ class _CalculadoraEcuacionSegundoGradoState
                     child: OutlinedButton.icon(
                       onPressed: _limpiar,
                       icon: const Icon(Icons.clear),
-                      label: const Text('Limpiar'),
+                      label: Text(l10n.calculator_clear_button),
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -254,7 +250,6 @@ class _CalculadoraEcuacionSegundoGradoState
                   ),
                 ],
               ),
-              // Resultado o error
               if (_error != null) ...[
                 const SizedBox(height: 24),
                 Container(
@@ -287,7 +282,6 @@ class _CalculadoraEcuacionSegundoGradoState
                   ),
                 ),
               ],
-              // Mostrar resultado con fracciones
               if (_resultadoFraccion != null) ...[
                 const SizedBox(height: 24),
                 Container(
@@ -310,7 +304,7 @@ class _CalculadoraEcuacionSegundoGradoState
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Resultado',
+                            l10n.calculator_result_title,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -336,7 +330,7 @@ class _CalculadoraEcuacionSegundoGradoState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Discriminante (Δ)',
+                              l10n.ecuacion_segundo_grado_discriminante,
                               style: Theme.of(context)
                                   .textTheme
                                   .labelMedium
@@ -363,7 +357,6 @@ class _CalculadoraEcuacionSegundoGradoState
                   ),
                 ),
               ],
-              // Mostrar resultado con decimales (fallback)
               if (_resultado != null && _resultadoFraccion == null) ...[
                 const SizedBox(height: 24),
                 Container(
@@ -386,7 +379,7 @@ class _CalculadoraEcuacionSegundoGradoState
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'Resultado',
+                            l10n.calculator_result_title,
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -401,7 +394,7 @@ class _CalculadoraEcuacionSegundoGradoState
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        _resultado!.toString(),
+                        _resultado!.toLocalizedString(l10n),
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall
@@ -426,7 +419,7 @@ class _CalculadoraEcuacionSegundoGradoState
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Discriminante (Δ)',
+                                l10n.ecuacion_segundo_grado_discriminante,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelMedium
@@ -465,6 +458,7 @@ class _CalculadoraEcuacionSegundoGradoState
     BuildContext context,
     ResultadoEcuacionFraccion resultado,
   ) {
+    final l10n = AppLocalizations.of(context)!;
     final solucion = resultado.solucionFraccion;
     final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
           fontFamily: 'monospace',
@@ -474,7 +468,7 @@ class _CalculadoraEcuacionSegundoGradoState
 
     if (!solucion.tieneSoluciones) {
       return Text(
-        'No tiene soluciones reales (Δ = ${solucion.discriminante} < 0)',
+        l10n.ecuacion_segundo_grado_no_real_solutions,
         style: textStyle,
       );
     }
@@ -499,7 +493,6 @@ class _CalculadoraEcuacionSegundoGradoState
       );
     }
 
-    // Una solución (raíz doble)
     if (solucion.fraccion1 != null) {
       final fraccion = solucion.fraccion1!.simplificar();
       return Row(
@@ -511,7 +504,7 @@ class _CalculadoraEcuacionSegundoGradoState
           ),
           const SizedBox(width: 8),
           Text(
-            '(raíz doble)',
+            l10n.ecuacion_segundo_grado_double_root,
             style: textStyle?.copyWith(
               fontStyle: FontStyle.italic,
               fontSize: textStyle.fontSize! * 0.9,
@@ -521,7 +514,6 @@ class _CalculadoraEcuacionSegundoGradoState
       );
     }
 
-    // Fallback
     return Text(
       solucion.toStringDetallado(),
       style: textStyle,
