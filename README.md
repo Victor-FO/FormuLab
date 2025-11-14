@@ -1,5 +1,4 @@
-# Calculadora Matemática - TestCalc
-
+# Calculadora Matemática - FormuLab
 Una calculadora educativa para estudiantes de ESO y Bachillerato que combina información sobre fórmulas matemáticas con herramientas de cálculo interactivas.
 
 ## 🏗️ Arquitectura
