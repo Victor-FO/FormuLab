@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testcalc/main.dart';
 import 'package:testcalc/presentation/pages/formulas_list_page.dart';
 import 'package:testcalc/l10n/app_localizations.dart';
+import 'package:testcalc/presentation/pages/quick_calculator_list_page.dart';
 
 
 /// Página principal de la aplicación
@@ -15,6 +16,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.appTitle),
+        centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         elevation: 2,
         actions: [
@@ -86,9 +88,10 @@ class HomePage extends StatelessWidget {
                   title: l10n.homeQuickCalcButton,
                   description: l10n.homeQuickCalcButtonDesc,
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Próximamente disponible'),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const QuickCalculatorListPage(),
                       ),
                     );
                   },

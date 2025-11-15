@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'Calculadora de Fórmulas';
+  String get appTitle => 'FormuLab';
 
   @override
   String get homeWelcome => 'Bem-vindo';

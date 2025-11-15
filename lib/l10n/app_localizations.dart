@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In es, this message translates to:
-  /// **'Calculadora de Fórmulas'**
+  /// **'FormuLab'**
   String get appTitle;
 
   /// No description provided for @homeWelcome.

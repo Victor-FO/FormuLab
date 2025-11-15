@@ -9,7 +9,7 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
-  String get appTitle => 'Formelrechner';
+  String get appTitle => 'FormuLab';
 
   @override
   String get homeWelcome => 'Willkommen';
