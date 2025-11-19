@@ -377,4 +377,11 @@ class AppLocalizationsIt extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'Il teorema di Talete afferma che se due rette incidenti sono tagliate da rette parallele, i segmenti che si formano sono proporzionali.\nNel contesto di triangoli simili, se abbiamo un triangolo grande con i lati A e C, e un triangolo più piccolo all\'interno con i lati corrispondenti B e D, la relazione vale: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Invia i tuoi dubbi o suggerimenti a littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Chiudere';
 }

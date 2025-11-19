@@ -377,4 +377,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'El teorema de Tales establece que si dos rectas secantes son cortadas por rectas paralelas, los segmentos que se forman son proporcionales.\nEn el contexto de triángulos semejantes, si tenemos un triángulo grande con lados A y C, y un triángulo más pequeño dentro con lados B y D correspondientes, la relación se mantiene: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Envia tus dudas o sugerencias a littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Cerrar';
 }

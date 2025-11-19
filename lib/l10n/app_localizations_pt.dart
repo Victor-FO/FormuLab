@@ -374,4 +374,11 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'O teorema de Tales afirma que se duas retas concorrentes são cortadas por retas paralelas, os segmentos formados são proporcionais.\nNo contexto de triângulos semelhantes, se temos um triângulo grande com lados A e C, e um triângulo menor dentro com lados correspondentes B e D, a relação se mantém: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Envie suas dúvidas ou sugestões para littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Fechar';
 }

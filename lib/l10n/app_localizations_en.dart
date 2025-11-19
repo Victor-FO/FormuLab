@@ -372,4 +372,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'Thales\'s theorem states that if two intersecting lines are cut by parallel lines, the segments that are formed are proportional.\nIn the context of similar triangles, if we have a large triangle with sides A and C, and a smaller triangle inside with corresponding sides B and D, the relationship holds: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Send your doubts or suggestions to littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Close';
 }

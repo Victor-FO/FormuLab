@@ -24,15 +24,28 @@ dev_dependencies:
 
   flutter_lints: ^5.0.0
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.0
 
-# Configuración actualizada y correcta para los iconos
+# Configuración para los iconos de la app
 flutter_launcher_icons:
   android: true
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/icon/icon.png" # Icono para iOS y versiones antiguas de Android
-  adaptive_icon_background: "#FFFFFF" # Fondo blanco para el icono adaptativo de Android
-  adaptive_icon_foreground: "assets/icon/icon.png" # Tu icono para el primer plano
+  image_path: "assets/icon/icon.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icon/icon.png"
+
+# Configuración para la splash screen
+flutter_native_splash:
+  android: true
+  ios: true
+
+  color: "#5698E8"
+  image: assets/icon/icon.png
+
+  android_12:
+    color: "#5698E8"
+    image: assets/icon/icon.png
 
 flutter:
   generate: true
@@ -42,3 +55,5 @@ flutter:
   assets:
     - assets/icon/icon.png
     - assets/icon/icon_logo.png
+    - assets/icon/splash.png
+    - assets/icon/brandimage.png # <-- ¡Esta línea faltaba!

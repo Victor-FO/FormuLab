@@ -377,4 +377,11 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'Le théorème de Thalès énonce que si deux droites sécantes sont coupées par des droites parallèles, les segments qui sont formés sont proportionnels.\nDans le contexte de triangles similaires, si nous avons un grand triangle avec les côtés A et C, et un plus petit triangle à l\'intérieur avec les côtés correspondants B et D, la relation est maintenue: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Envoyez vos doutes ou suggestions à littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Fermer';
 }

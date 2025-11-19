@@ -131,5 +131,7 @@
     "formula_teorema_tales_name": "Théorème de Thalès",
     "formula_teorema_tales_desc": "Relation de proportionnalité dans la similitude des triangles",
     "formula_teorema_tales_example": "Si a=4, b=2 et c=6, alors d=(2*6)/4=3",
-    "formula_teorema_tales_explanation": "Le théorème de Thalès énonce que si deux droites sécantes sont coupées par des droites parallèles, les segments qui sont formés sont proportionnels.\nDans le contexte de triangles similaires, si nous avons un grand triangle avec les côtés A et C, et un plus petit triangle à l'intérieur avec les côtés correspondants B et D, la relation est maintenue: A/B = C/D."
+    "formula_teorema_tales_explanation": "Le théorème de Thalès énonce que si deux droites sécantes sont coupées par des droites parallèles, les segments qui sont formés sont proportionnels.\nDans le contexte de triangles similaires, si nous avons un grand triangle avec les côtés A et C, et un plus petit triangle à l'intérieur avec les côtés correspondants B et D, la relation est maintenue: A/B = C/D.",
+    "infoText": "Envoyez vos doutes ou suggestions à littlethingslab@proton.me",
+    "cerrarText": "Fermer"
 }

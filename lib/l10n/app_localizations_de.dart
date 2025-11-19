@@ -381,4 +381,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get formula_teorema_tales_explanation =>
       'Der Satz des Thales besagt, dass wenn zwei sich schneidende Linien von parallelen Linien geschnitten werden, die gebildeten Segmente proportional sind.\nIm Kontext ähnlicher Dreiecke, wenn wir ein großes Dreieck mit den Seiten A und C haben, und ein kleineres Dreieck innen mit den entsprechenden Seiten B und D, bleibt das Verhältnis bestehen: A/B = C/D.';
+
+  @override
+  String get infoText =>
+      'Senden Sie Ihre Zweifel oder Vorschläge an littlethingslab@proton.me';
+
+  @override
+  String get cerrarText => 'Schließen';
 }

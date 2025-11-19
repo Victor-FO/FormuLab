@@ -131,5 +131,7 @@
     "formula_teorema_tales_name": "Satz des Thales",
     "formula_teorema_tales_desc": "Verhältnis der Proportionalität bei der Ähnlichkeit von Dreiecken",
     "formula_teorema_tales_example": "Wenn a=4, b=2 und c=6, dann ist d=(2*6)/4=3",
-    "formula_teorema_tales_explanation": "Der Satz des Thales besagt, dass wenn zwei sich schneidende Linien von parallelen Linien geschnitten werden, die gebildeten Segmente proportional sind.\nIm Kontext ähnlicher Dreiecke, wenn wir ein großes Dreieck mit den Seiten A und C haben, und ein kleineres Dreieck innen mit den entsprechenden Seiten B und D, bleibt das Verhältnis bestehen: A/B = C/D."
+    "formula_teorema_tales_explanation": "Der Satz des Thales besagt, dass wenn zwei sich schneidende Linien von parallelen Linien geschnitten werden, die gebildeten Segmente proportional sind.\nIm Kontext ähnlicher Dreiecke, wenn wir ein großes Dreieck mit den Seiten A und C haben, und ein kleineres Dreieck innen mit den entsprechenden Seiten B und D, bleibt das Verhältnis bestehen: A/B = C/D.",
+    "infoText": "Senden Sie Ihre Zweifel oder Vorschläge an littlethingslab@proton.me",
+    "cerrarText": "Schließen"
 }

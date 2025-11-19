@@ -132,5 +132,7 @@
     "formula_teorema_tales_name": "Teorema de Tales",
     "formula_teorema_tales_desc": "Relación de proporcionalidad en la semejanza de triángulos",
     "formula_teorema_tales_example": "Si a=4, b=2 y c=6, entonces d=(2*6)/4=3",
-    "formula_teorema_tales_explanation": "El teorema de Tales establece que si dos rectas secantes son cortadas por rectas paralelas, los segmentos que se forman son proporcionales.\nEn el contexto de triángulos semejantes, si tenemos un triángulo grande con lados A y C, y un triángulo más pequeño dentro con lados B y D correspondientes, la relación se mantiene: A/B = C/D."
+    "formula_teorema_tales_explanation": "El teorema de Tales establece que si dos rectas secantes son cortadas por rectas paralelas, los segmentos que se forman son proporcionales.\nEn el contexto de triángulos semejantes, si tenemos un triángulo grande con lados A y C, y un triángulo más pequeño dentro con lados B y D correspondientes, la relación se mantiene: A/B = C/D.",
+    "infoText": "Envia tus dudas o sugerencias a littlethingslab@proton.me",
+    "cerrarText": "Cerrar"
 }
