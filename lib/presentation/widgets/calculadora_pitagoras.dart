@@ -174,7 +174,7 @@ class _CalculadoraPitagorasState extends State<CalculadoraPitagoras> {
         labelText: label,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         filled: !enabled,
-        fillColor: enabled ? null : Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.4),
+        fillColor: enabled ? null : Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.4),
       ),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*[,.]?\d*'))],

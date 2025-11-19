@@ -44,10 +44,11 @@ class HomePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 40),
-                Icon(
-                  Icons.calculate,
-                  size: 80,
-                  color: Theme.of(context).colorScheme.primary,
+                const Center(
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundImage: AssetImage('assets/icon/icon_logo.png'),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 Text(
