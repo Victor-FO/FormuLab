@@ -11,6 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: ^2.5.3
+  in_app_review: ^2.0.10
+  share_plus: ^12.0.1
   # Dependencias de internacionalización
   flutter_localizations:
     sdk: flutter

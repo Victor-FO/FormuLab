@@ -1,4 +1,4 @@
-package com.example.testcalc
+package com.littlethingslab.calculator.formulab
 
 import io.flutter.embedding.android.FlutterActivity
 

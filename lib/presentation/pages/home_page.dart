@@ -1,13 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:testcalc/main.dart';
 import 'package:testcalc/presentation/pages/formulas_list_page.dart';
 import 'package:testcalc/l10n/app_localizations.dart';
 import 'package:testcalc/presentation/pages/quick_calculator_list_page.dart';
 
-
 /// Página principal de la aplicación
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Future<void> _requestReviewForFormulas() async {
+    final prefs = await SharedPreferences.getInstance();
+    final inAppReview = InAppReview.instance;
+
+    const int minClicks = 3; // Pedir valoración al 3er clic o más
+    const int daysBetweenPrompts = 30;
+
+    int clickCount = prefs.getInt('formulas_click_count') ?? 0;
+    clickCount++;
+    await prefs.setInt('formulas_click_count', clickCount);
+
+    if (clickCount >= minClicks) {
+      String? lastPromptDateStr = prefs.getString('last_review_prompt_date');
+      DateTime? lastPromptDate =
+          lastPromptDateStr != null ? DateTime.parse(lastPromptDateStr) : null;
+
+      if (lastPromptDate == null ||
+          DateTime.now().difference(lastPromptDate).inDays >= daysBetweenPrompts) {
+        if (await inAppReview.isAvailable()) {
+          inAppReview.requestReview();
+          await prefs.setString(
+              'last_review_prompt_date', DateTime.now().toIso8601String());
+          await prefs.setInt('formulas_click_count', 0); // Reiniciar contador para epdirme valoracion despues de que se hagan 3 clicks en Ver formulas del menu principal
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +62,13 @@ class HomePage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.language),
             onPressed: () => _showLanguagePicker(context),
+          ),
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () {
+              final String appLink = 'https://play.google.com/store/apps/details?id=littlethingslab.calculator.formulab';
+              Share.share('$appLink');
+            },
           ),
         ],
       ),
@@ -78,6 +120,7 @@ class HomePage extends StatelessWidget {
                   title: l10n.homeFormulasButton,
                   description: l10n.homeFormulasButtonDesc,
                   onTap: () {
+                    _requestReviewForFormulas();
                     Navigator.push(
                       context,
                       MaterialPageRoute(
