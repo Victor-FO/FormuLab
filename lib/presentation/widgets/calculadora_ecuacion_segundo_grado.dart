@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:testcalc/domain/usecases/resolver_ecuacion_segundo_grado_usecase.dart';
 import 'package:testcalc/domain/usecases/resolver_ecuacion_segundo_grado_fraccion_usecase.dart';
 import 'package:testcalc/domain/value_objects/resultado_ecuacion.dart';
 import 'package:testcalc/domain/value_objects/resultado_ecuacion_fraccion.dart';
+import 'package:testcalc/domain/value_objects/resultado_ecuacion_irracional.dart';
 import '../../l10n/app_localizations.dart';
 
 class CalculadoraEcuacionSegundoGrado extends StatefulWidget {
@@ -24,6 +26,7 @@ class _CalculadoraEcuacionSegundoGradoState
   final _resolverFraccionUseCase = const ResolverEcuacionSegundoGradoFraccionUseCase();
   ResultadoEcuacion? _resultado;
   ResultadoEcuacionFraccion? _resultadoFraccion;
+  ResultadoEcuacionIrracional? _resultadoIrracional;
   String? _error;
 
   @override
@@ -39,6 +42,7 @@ class _CalculadoraEcuacionSegundoGradoState
     setState(() {
       _resultado = null;
       _resultadoFraccion = null;
+      _resultadoIrracional = null;
       _error = null;
     });
 
@@ -58,17 +62,15 @@ class _CalculadoraEcuacionSegundoGradoState
         return;
       }
 
-      final resultadoFraccion = _resolverFraccionUseCase.ejecutar(a: a, b: b, c: c);
-      
-      if (resultadoFraccion != null && resultadoFraccion.tieneSoluciones) {
-        setState(() {
-          _resultadoFraccion = resultadoFraccion;
-        });
+      final result = _resolverFraccionUseCase.ejecutar(a: a, b: b, c: c);
+
+      if (result is ResultadoEcuacionFraccion) {
+        setState(() => _resultadoFraccion = result);
+      } else if (result is ResultadoEcuacionIrracional) {
+        setState(() => _resultadoIrracional = result);
       } else {
-        final resultado = _resolverUseCase.ejecutar(a: a, b: b, c: c);
-        setState(() {
-          _resultado = resultado;
-        });
+        final resultadoDecimal = _resolverUseCase.ejecutar(a: a, b: b, c: c);
+        setState(() => _resultado = resultadoDecimal);
       }
     } catch (e) {
       setState(() {
@@ -84,6 +86,7 @@ class _CalculadoraEcuacionSegundoGradoState
     setState(() {
       _resultado = null;
       _resultadoFraccion = null;
+      _resultadoIrracional = null;
       _error = null;
     });
   }
@@ -230,6 +233,9 @@ class _CalculadoraEcuacionSegundoGradoState
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
+                          side: BorderSide(
+                              color: Theme.of(context).colorScheme.outline,
+                              width: 1),
                         ),
                       ),
                     ),
@@ -357,7 +363,82 @@ class _CalculadoraEcuacionSegundoGradoState
                   ),
                 ),
               ],
-              if (_resultado != null && _resultadoFraccion == null) ...[
+              if (_resultadoIrracional != null) ...[
+                 const SizedBox(height: 24),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.check_circle,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onPrimaryContainer,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            l10n.calculator_result_title,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onPrimaryContainer,
+                                ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      _buildResultadoIrracional(context, _resultadoIrracional!),
+                      const SizedBox(height: 16),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.ecuacion_segundo_grado_discriminante,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
+                                  ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Δ = ${_resultadoIrracional!.discriminante}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                    fontFamily: 'monospace',
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              if (_resultado != null && _resultadoFraccion == null && _resultadoIrracional == null) ...[
                 const SizedBox(height: 24),
                 Container(
                   width: double.infinity,
@@ -517,6 +598,39 @@ class _CalculadoraEcuacionSegundoGradoState
     return Text(
       solucion.toStringDetallado(),
       style: textStyle,
+    );
+  }
+
+  Widget _buildResultadoIrracional(
+    BuildContext context,
+    ResultadoEcuacionIrracional resultado,
+  ) {
+    final b = resultado.solucion.b;
+    final d = resultado.solucion.discriminante;
+    final a = resultado.solucion.a;
+    final twoA = 2 * a;
+
+    final textStyle = Theme.of(context).textTheme.bodyLarge?.copyWith(
+          fontWeight: FontWeight.bold,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+        );
+
+    final x1Tex = 'x_1 = \\frac{${-b} + \\sqrt{$d}}{$twoA}';
+    final x2Tex = 'x_2 = \\frac{${-b} - \\sqrt{$d}}{$twoA}';
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Math.tex(
+          x1Tex,
+          textStyle: textStyle,
+        ),
+        const SizedBox(height: 16),
+        Math.tex(
+          x2Tex,
+          textStyle: textStyle,
+        ),
+      ],
     );
   }
 }

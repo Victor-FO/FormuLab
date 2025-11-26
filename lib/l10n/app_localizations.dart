@@ -121,7 +121,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeSubtitle.
   ///
   /// In es, this message translates to:
-  /// **'Calculadora para estudiantes de ESO y Bachillerato'**
+  /// **'Calculadora de fórmulas para estudiantes de instituto'**
   String get homeSubtitle;
 
   /// No description provided for @homeFormulasButton.
@@ -145,7 +145,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeQuickCalcButtonDesc.
   ///
   /// In es, this message translates to:
-  /// **'Acceso directo a calculadoras'**
+  /// **'Acceso directo para calcular fórmulas'**
   String get homeQuickCalcButtonDesc;
 
   /// No description provided for @homeStartMessage.

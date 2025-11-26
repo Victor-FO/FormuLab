@@ -15,7 +15,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeWelcome => 'Bienvenue';
 
   @override
-  String get homeSubtitle => 'Calculatrice pour les lycéens';
+  String get homeSubtitle =>
+      'Calculatrice de formules pour les élèves du lycée';
 
   @override
   String get homeFormulasButton => 'Voir les Formules';
@@ -28,7 +29,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get homeQuickCalcButton => 'Calculatrice Rapide';
 
   @override
-  String get homeQuickCalcButtonDesc => 'Accès direct aux calculatrices';
+  String get homeQuickCalcButtonDesc =>
+      'Accès direct pour calculer des formules';
 
   @override
   String get homeStartMessage => 'Sélectionnez une option pour commencer';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:testcalc/domain/entities/formula.dart';
 import 'package:testcalc/domain/usecases/obtener_formulas_usecase.dart';
 import 'package:testcalc/infrastructure/data_sources/formula_data_source.dart';
@@ -20,7 +21,7 @@ class _FormulasListPageState extends State<FormulasListPage> {
   List<Formula> _formulasFiltradas = [];
   bool _isLoading = true;
   // Usamos el nombre interno/clave para el estado del filtro
-  String _categoriaFiltro = 'Todas'; 
+  String _categoriaFiltro = 'Todas';
   String _busqueda = '';
 
   @override
@@ -219,25 +220,20 @@ class _FormulasListPageState extends State<FormulasListPage> {
               ),
               const SizedBox(height: 12),
               Container(
-                padding: const EdgeInsets.all(12),
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
                 decoration: BoxDecoration(
                   color: Theme.of(context).colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.functions, size: 20),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        formula.formula,
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              fontFamily: 'monospace',
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
+                child: Center(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Math.tex(
+                      formula.formula,
+                      textStyle: Theme.of(context).textTheme.titleMedium,
                     ),
-                  ],
+                  ),
                 ),
               ),
             ],

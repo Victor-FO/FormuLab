@@ -16,7 +16,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get homeSubtitle =>
-      'Calculadora para estudiantes de ESO y Bachillerato';
+      'Calculadora de fórmulas para estudiantes de instituto';
 
   @override
   String get homeFormulasButton => 'Ver Fórmulas';
@@ -28,7 +28,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeQuickCalcButton => 'Calculadora Rápida';
 
   @override
-  String get homeQuickCalcButtonDesc => 'Acceso directo a calculadoras';
+  String get homeQuickCalcButtonDesc => 'Acceso directo para calcular fórmulas';
 
   @override
   String get homeStartMessage => 'Selecciona una opción para comenzar';

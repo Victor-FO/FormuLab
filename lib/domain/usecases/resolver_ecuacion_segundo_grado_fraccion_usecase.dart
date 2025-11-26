@@ -1,33 +1,53 @@
+import 'dart:math';
 import 'package:testcalc/domain/entities/ecuacion_segundo_grado_fraccion.dart';
+import 'package:testcalc/domain/entities/solucion_irracional.dart';
 import 'package:testcalc/domain/value_objects/resultado_ecuacion_fraccion.dart';
+import 'package:testcalc/domain/value_objects/resultado_ecuacion_irracional.dart';
 
-/// Caso de uso para resolver una ecuación de segundo grado usando fracciones
 class ResolverEcuacionSegundoGradoFraccionUseCase {
   const ResolverEcuacionSegundoGradoFraccionUseCase();
 
-  /// Intenta resolver usando fracciones si los coeficientes son enteros
-  /// Retorna null si no se puede resolver con fracciones exactas
-  ResultadoEcuacionFraccion? ejecutar({
+  dynamic ejecutar({
     required double a,
     required double b,
     required double c,
   }) {
-    // Verificar si los coeficientes son enteros
     if (!_esEntero(a) || !_esEntero(b) || !_esEntero(c)) {
       return null;
     }
 
-    try {
-      final aInt = a.round();
-      final bInt = b.round();
-      final cInt = c.round();
+    final aInt = a.round();
+    final bInt = b.round();
+    final cInt = c.round();
+    final discriminante = bInt * bInt - 4 * aInt * cInt;
 
-      final ecuacion = EcuacionSegundoGradoFraccion(
-        a: aInt,
-        b: bInt,
-        c: cInt,
-      );
-
+    if (discriminante >= 0) {
+      final raizDiscriminante = sqrt(discriminante);
+      if (raizDiscriminante == raizDiscriminante.floor()) {
+        final ecuacion = EcuacionSegundoGradoFraccion(
+          a: aInt,
+          b: bInt,
+          c: cInt,
+        );
+        final solucion = ecuacion.resolver();
+        return ResultadoEcuacionFraccion(
+          solucionFraccion: solucion,
+          a: aInt,
+          b: bInt,
+          c: cInt,
+        );
+      } else {
+        return ResultadoEcuacionIrracional(
+          solucion: SolucionIrracional(
+            b: bInt,
+            discriminante: discriminante,
+            a: aInt,
+          ),
+          discriminante: discriminante,
+        );
+      }
+    } else {
+      final ecuacion = EcuacionSegundoGradoFraccion(a: aInt, b: bInt, c: cInt);
       final solucion = ecuacion.resolver();
       return ResultadoEcuacionFraccion(
         solucionFraccion: solucion,
@@ -35,9 +55,6 @@ class ResolverEcuacionSegundoGradoFraccionUseCase {
         b: bInt,
         c: cInt,
       );
-    } catch (e) {
-      // Si no se puede resolver con fracciones exactas, retornar null
-      return null;
     }
   }
 

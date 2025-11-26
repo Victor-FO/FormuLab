@@ -131,7 +131,10 @@ class _CalculadoraAreaRomboState extends State<CalculadoraAreaRombo> {
             label: Text(l10n.calculator_calculate_button),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+                side: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
+              ),
             ),
           ),
         ),

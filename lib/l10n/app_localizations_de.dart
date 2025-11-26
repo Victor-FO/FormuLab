@@ -15,7 +15,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get homeWelcome => 'Willkommen';
 
   @override
-  String get homeSubtitle => 'Rechner für Gymnasiasten';
+  String get homeSubtitle => 'Formelrechner für Oberstufenschüler';
 
   @override
   String get homeFormulasButton => 'Formeln Anzeigen';
@@ -27,7 +27,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get homeQuickCalcButton => 'Schnellrechner';
 
   @override
-  String get homeQuickCalcButtonDesc => 'Direkter Zugriff auf Rechner';
+  String get homeQuickCalcButtonDesc =>
+      'Direkter Zugriff zum Berechnen von Formeln';
 
   @override
   String get homeStartMessage => 'Wählen Sie eine Option, um zu beginnen';

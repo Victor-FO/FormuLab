@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_math_fork/flutter_math.dart';
 import 'package:testcalc/domain/entities/formula.dart';
 import 'package:testcalc/presentation/utils/localization_utils.dart';
 import 'package:testcalc/presentation/widgets/calculadora_ecuacion_segundo_grado.dart';
@@ -114,14 +115,15 @@ class _FormulaInfoCard extends StatelessWidget {
                         ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    formula.formula,
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontFamily: 'monospace',
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
-                        ),
-                    textAlign: TextAlign.center,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Math.tex(
+                      formula.formula,
+                      textStyle: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          ),
+                    ),
                   ),
                 ],
               ),
