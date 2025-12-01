@@ -10,6 +10,6 @@ class SolucionIrracional {
     required this.a,
   });
 
-  String get x1 => '(-${b} + √${discriminante}) / ${2 * a}';
-  String get x2 => '(-${b} - √${discriminante}) / ${2 * a}';
+  String get x1 => '(-$b + √$discriminante) / ${2 * a}';
+  String get x2 => '(-$b - √$discriminante) / ${2 * a}';
 }

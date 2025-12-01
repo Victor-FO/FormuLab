@@ -67,7 +67,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.share),
             onPressed: () {
               final String appLink = 'https://play.google.com/store/apps/details?id=littlethingslab.calculator.formulab';
-              Share.share('$appLink');
+              Share.share(appLink);
             },
           ),
         ],

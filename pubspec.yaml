@@ -2,7 +2,7 @@ name: testcalc
 description: "A new Flutter project."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+3
 
 environment:
   sdk: ^3.9.2
@@ -15,6 +15,7 @@ dependencies:
   shared_preferences: ^2.5.3
   in_app_review: ^2.0.10
   share_plus: ^12.0.1
+  google_mobile_ads: ^6.0.0
   # Dependencias de internacionalización
   flutter_localizations:
     sdk: flutter
@@ -26,8 +27,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
   flutter_native_splash: ^2.4.0
 
 # Configuración para los iconos de la app
